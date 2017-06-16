@@ -20,8 +20,8 @@ function usage {
 function exit_report {
   REPORT_STATUS=$1
   shift
-  REPORT_STRING="${@}"
+  REPORT_TEXT="${@}"
 
-  echo -e "${REPORT_STRING}"
+  echo -e "${REPORT_TEXT}"
   exit ${REPORT_STATUS}
 }

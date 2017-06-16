@@ -1,0 +1,27 @@
+# Be strict
+set -o pipefail
+
+IFS=' '
+
+# Exit Codes
+CHECK_STATE_OK=0
+CHECK_STATE_WARNING=1
+CHECK_STATE_ERROR=2
+CHECK_STATE_UNKNOWN=3
+
+# Output usage information from source files headers
+function usage {
+  grep '^#/' < $0 | cut -c4-
+}
+
+# Report results
+# Expects argument 1 to be the return / exit code
+# Any other arguments are formed into a string as the response text
+function exit_report {
+  REPORT_STATUS=$1
+  shift
+  REPORT_STRING="${@}"
+
+  echo -e "${REPORT_STRING}"
+  exit ${REPORT_STATUS}
+}

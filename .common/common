@@ -25,3 +25,11 @@ function exit_report {
   echo -e "${REPORT_TEXT}"
   exit ${REPORT_STATUS}
 }
+
+function pushd {
+  command pushd "$@" > /dev/null
+}
+
+function popd {
+  command popd "$@" > /dev/null
+}

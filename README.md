@@ -22,6 +22,18 @@ All checks will have sensible defaults. For example, scripts that require hostna
 
 Where possible, minimal or NO dependencies will be required to run these scripts.
 
+## Functions
+
+The following convenience functions are provided:
+
+### `usage`
+
+When called, outputs the usage information from the current source file. Usage information is retrieved by grepping the entire file and looking for lines that begin with `#/`.
+
+### `exit_report(code, message, ...)`
+
+Exits the process with the specified code, after printing out the supplied message. The message can be a single string, or any number of arguments which will be combined into a string.
+
 ## Documentation ##
 
 Each check shall provide its own documentation within the script itself.
@@ -39,6 +51,8 @@ Reviews will simply be checks and measures to ensure it follows the standard app
 ## License
 
 All checks, files and sources are MIT licenced unless otherwise stated.
+
+
 
 [nagios-plugin-spec]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/pluginapi.html
 [nagios]: https://www.nagios.org/

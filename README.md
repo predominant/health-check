@@ -52,8 +52,6 @@ Reviews will simply be checks and measures to ensure it follows the standard app
 
 All checks, files and sources are MIT licenced unless otherwise stated.
 
-
-
 [nagios-plugin-spec]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/pluginapi.html
 [nagios]: https://www.nagios.org/
 [consul]: https://www.consul.io/

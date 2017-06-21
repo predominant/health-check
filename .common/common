@@ -10,14 +10,14 @@ CHECK_STATE_ERROR=2
 CHECK_STATE_UNKNOWN=3
 
 # Output usage information from source files headers
-function usage {
+usage() {
   grep '^#/' < $0 | cut -c4-
 }
 
 # Report results
 # Expects argument 1 to be the return / exit code
 # Any other arguments are formed into a string as the response text
-function exit_report {
+exit_report() {
   REPORT_STATUS=$1
   shift
   REPORT_TEXT="${@}"
@@ -26,10 +26,10 @@ function exit_report {
   exit ${REPORT_STATUS}
 }
 
-function pushd {
+pushd() {
   command pushd "$@" > /dev/null
 }
 
-function popd {
+popd() {
   command popd "$@" > /dev/null
 }

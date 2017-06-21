@@ -27,18 +27,20 @@ if [ ${CURL_STATUS} -eq ${CURLE_OK} ]; then
   ES_STATUS=$(echo -e "${ES_DATA}" | awk '{print $4}')
 
   REPORT_STATUS=${CHECK_STATE_UNKNOWN}
-  REPORT_TEXT="Status is unknown | ${ES_DATA_PRETTY}"
+  REPORT_TEXT="Status is unknown"
 
   if [ "${ES_STATUS}" == "green" ]; then
     REPORT_STATUS=${CHECK_STATE_OK}
-    REPORT_TEXT="OK | ${ES_DATA_PRETTY}"
+    REPORT_TEXT="OK"
   elif [ "${ES_STATUS}" == "orange" ]; then
     REPORT_STATUS=${CHECK_STATE_WARNING}
-    REPORT_TEXT="WARNING | ${ES_DATA_PRETTY}"
+    REPORT_TEXT="WARNING"
   elif [ "${ES_STATUS}" == "red" ]; then
     REPORT_STATUS=${CHECK_STATE_ERROR}
-    REPORT_TEXT="ERROR | ${ES_DATA_PRETTY}"
+    REPORT_TEXT="ERROR"
   fi
+
+  REPORT_TEXT="${REPORT_TEXT} | ${ES_DATA_PRETTY}"
 else
   REPORT_STATUS=${CHECK_STATE_ERROR}
   REPORT_TEXT="ERROR | Failed communicating with server at ${ES_URL} | ${ES_DATA}"

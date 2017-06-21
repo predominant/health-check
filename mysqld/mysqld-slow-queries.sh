@@ -8,6 +8,10 @@
 #/ For this script to catch slow queries, it needs to be
 #/ called at least every (long_query_time / 0.75) seconds.
 #/
+#/ Requirements:
+#/   - Requires that a MySQL client is installed, and is
+#/     available on the $PATH
+#/
 #/ Usage:
 #/   mysqld-slow-queries.sh
 #/   mysqld-slow-queries.sh -H localhost -w 4 -c 8

@@ -28,16 +28,13 @@ MYSQLD_WARNING=${MYSQLD_WARNING:-4}
 MYSQLD_CRITICAL=${MYSQLD_CRITICAL:-8}
 # -------------------------------------
 
-echo "$@"
-echo $0
-echo $1
 ARGS=$(getopt --name "$0" --long warning:,critical:,host:,port:,user:,pass:,help --options w:c:H:P:u:p:h -- "$@") || {
   usage
   exit 2
 }
-echo $ARGS
+
 eval set -- $ARGS
-echo $1
+
 while [ $# -gt 0 ]; do
   case "$1" in
     -H|--host)

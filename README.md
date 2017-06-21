@@ -22,6 +22,15 @@ All checks will have sensible defaults. For example, scripts that require hostna
 
 Where possible, minimal or NO dependencies will be required to run these scripts.
 
+Current dependencies:
+
+* Netcat (`nc`)
+* cURL (`curl`)
+* tail (`tail`)
+* awk (`awk`)
+* TR (`tr`)
+* grep (`grep`)
+
 ## Functions
 
 The following convenience functions are provided:

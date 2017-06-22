@@ -77,7 +77,12 @@ REPORT_STATUS=${CHECK_STATE_UNKNOWN}
 REPORT_TEXT="Status is unknown"
 
 SQL_COMMAND="SELECT * FROM information_schema.PROCESSLIST WHERE Time > (SELECT VARIABLE_VALUE FROM information_schema.GLOBAL_VARIABLES WHERE VARIABLE_NAME = 'LONG_QUERY_TIME') AND NOT DB IS NULL AND COMMAND <> 'Sleep';"
-RAW_RESULTS=$(mysql -u ${MYSQLD_USER} -p${MYSQLD_PASS} -H ${MYSQLD_HOST} -P ${MYSQLD_PORT} --silent --raw --execute "${SQL_COMMAND}")
+RAW_RESULTS=$(mysql --protocol=tcp --user=${MYSQLD_USER} --password=${MYSQLD_PASS} --host=${MYSQLD_HOST} --port=${MYSQLD_PORT} --silent --raw --execute "${SQL_COMMAND}" 2&>1)
+if [ $? -ne 0 ]; then
+  REPORT_TEXT="${REPORT_TEXT} | ${RAW_RESULTS}"
+  exit_report ${REPORT_STATUS} ${REPORT_TEXT}
+fi
+
 RESULT_COUNT=$(echo -e "${RAW_RESULTS}" | wc -l)
 if [ "$RESULT_COUNT" -ne "0" ]; then
   RESULT_COUNT=$(( $RESULT_COUNT - 1 ))

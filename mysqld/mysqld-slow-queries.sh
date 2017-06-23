@@ -77,19 +77,20 @@ REPORT_STATUS=${CHECK_STATE_UNKNOWN}
 REPORT_TEXT="Status is unknown"
 
 SQL_COMMAND="SELECT * FROM information_schema.PROCESSLIST WHERE Time > (SELECT VARIABLE_VALUE FROM information_schema.GLOBAL_VARIABLES WHERE VARIABLE_NAME = 'LONG_QUERY_TIME') AND NOT DB IS NULL AND COMMAND <> 'Sleep';"
-RAW_RESULTS=$(mysql --protocol=tcp --user=${MYSQLD_USER} --password=${MYSQLD_PASS} --host=${MYSQLD_HOST} --port=${MYSQLD_PORT} --silent --raw --execute "${SQL_COMMAND}" 2&>1)
+RAW_RESULTS=$(mysql --protocol=tcp --user=${MYSQLD_USER} --password=${MYSQLD_PASS} --host=${MYSQLD_HOST} --port=${MYSQLD_PORT} --silent --raw --execute "${SQL_COMMAND}" 2>&1)
 if [ $? -ne 0 ]; then
   REPORT_TEXT="${REPORT_TEXT} | ${RAW_RESULTS}"
   exit_report ${REPORT_STATUS} ${REPORT_TEXT}
 fi
 
+RAW_RESULTS=$(echo -e "${RAW_RESULTS}" | grep -v 'Using a password on the command line interface can be insecure')
 RESULT_COUNT=$(echo -e "${RAW_RESULTS}" | wc -l)
 if [ "$RESULT_COUNT" -ne "0" ]; then
   RESULT_COUNT=$(( $RESULT_COUNT - 1 ))
-  if [ $RESULT_COUNT -gte $MYSQLD_CRITICAL]; then
+  if [ $RESULT_COUNT -ge $MYSQLD_CRITICAL ]; then
     REPORT_STATUS=${CHECK_STATE_ERROR}
     REPORT_TEXT="ERROR"
-  elif [ $RESULT_COUNT -gte $MYSQLD_WARNING ]; then
+  elif [ $RESULT_COUNT -ge $MYSQLD_WARNING ]; then
     REPORT_STATUS=${CHECK_STATE_WARNING}
     REPORT_TEXT="WARNING"
   else

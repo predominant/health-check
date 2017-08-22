@@ -32,7 +32,7 @@ if [ ${CURL_STATUS} -eq ${CURLE_OK} ]; then
   if [ "${ES_STATUS}" == "green" ]; then
     REPORT_STATUS=${CHECK_STATE_OK}
     REPORT_TEXT="OK"
-  elif [ "${ES_STATUS}" == "orange" ]; then
+  elif [ "${ES_STATUS}" == "yellow" ]; then
     REPORT_STATUS=${CHECK_STATE_WARNING}
     REPORT_TEXT="WARNING"
   elif [ "${ES_STATUS}" == "red" ]; then
